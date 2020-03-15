@@ -16,6 +16,7 @@ api.interceptors.request.use(function (config) {
   store.dispatch('message/clearMessages')
   // 認証用トークンがあればリクエストヘッダに乗せる
   const token = localStorage.getItem('access')
+  console.log(token)
   if (token) {
     config.headers.Authorization = 'JWT ' + token
     return config

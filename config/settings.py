@@ -19,26 +19,26 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # 3rd party apps
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
     'corsheaders',
 
     # My applications
     'apiv1.apps.Apiv1Config',
-    'shop.apps.ShopConfig',
     'diary_app',
 ]
 
+DJOSER = {
+    'SET_PASSWORD_RETYPE': True
+}
+
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -46,6 +46,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'app_middleware.request.RoutingMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -129,19 +131,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+STATICFILES_DIRS = (
+    ("vuefront", os.path.join(STATIC_ROOT, 'vuefront')),
+    ("rest_framework", os.path.join(STATIC_ROOT, 'rest_framework')),
+)
 
+LOGIN_REDIRECT_URL = '/auth/login/'
 
-# REST Framework
+# REST FRAMEWORK
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-}
-
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 

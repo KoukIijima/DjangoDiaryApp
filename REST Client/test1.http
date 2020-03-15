@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:8000/api/v1
+
+### @name login
+POST {{baseUrl}}/auth/token/login
+content-type: application/json
+
+{
+    "username": "kouki",
+    "password": "P@ssw0rd!"
+}
+
+
+@authToken = {{login.response.body.auth_token}}

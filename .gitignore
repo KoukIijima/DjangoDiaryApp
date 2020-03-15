@@ -121,3 +121,5 @@ dmypy.json
 # macOS + PyCharm
 .DS_Store
 .idea/
+Pipfile
+Pipfile.lock

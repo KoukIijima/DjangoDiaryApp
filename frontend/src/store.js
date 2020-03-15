@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 // 認証情報
 const authModule = {
-  strict: process.env.NODE_ENV !== 'production',
+  strict: process.env.VUE_APP_ROOT_API,
   namespaced: true,
   state: {
     username: '',
@@ -31,16 +31,24 @@ const authModule = {
      * ログイン
      */
     login (context, payload) {
-      return api.post('/auth/jwt/create/', {
-        'username': payload.username,
-        'password': payload.password
+      console.log(context)
+      console.log(payload)
+      // Unauthorize になる
+      return api.post('/auth/token/login', {
+        username: payload.username,
+        password: payload.password
       })
         .then(response => {
           // 認証用トークンをlocalStorageに保存
-          localStorage.setItem('access', response.data.access)
+          console.log("------")
+          console.log(response)
+          console.log("------")
+          localStorage.setItem('access', response.data.auth_token)
           // ユーザー情報を取得してstoreのユーザー情報を更新
           return context.dispatch('reload')
             .then(user => user)
+        }).catch((error) => {
+          return Promise.reject(error)
         })
     },
     /**

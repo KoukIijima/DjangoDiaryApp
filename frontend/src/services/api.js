@@ -3,7 +3,7 @@ import store from '@/store'
 
 const api = axios.create({
   baseURL: process.env.VUE_APP_ROOT_API,
-  timeout: 5000,
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest'
@@ -16,9 +16,11 @@ api.interceptors.request.use(function (config) {
   store.dispatch('message/clearMessages')
   // 認証用トークンがあればリクエストヘッダに乗せる
   const token = localStorage.getItem('access')
+  console.log("+++++++")
   console.log(token)
+  console.log("+++++++")
   if (token) {
-    config.headers.Authorization = 'JWT ' + token
+    config.headers.Authorization = 'Token ' + token
     return config
   }
   return config

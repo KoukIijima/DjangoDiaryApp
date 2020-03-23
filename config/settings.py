@@ -34,7 +34,9 @@ INSTALLED_APPS = [
     'diary_app',
 ]
 
-
+DJOSER = {
+    'SET_PASSWORD_RETYPE': True
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

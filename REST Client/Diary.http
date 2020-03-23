@@ -1,0 +1,28 @@
+@baseUrl = http://localhost:8000/api/v1
+
+### @name response
+POST {{baseUrl}}/auth/token/login
+content-type: application/json
+
+{
+    "username": "kouki",
+    "password": "P@ssw0rd!"
+}
+
+
+@authToken = {{response.data.auth_token}}
+
+
+###
+GET {{baseUrl}}/diary/ HTTP/1.1
+
+###
+POST {{baseUrl}}/diary/ HTTP/1.1
+content-type: application/json
+
+{
+    "data": "test001",
+    "title": "title",
+    "body": "トマト日記",
+    "weather": "晴れ晴れ"
+}

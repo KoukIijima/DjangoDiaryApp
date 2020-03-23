@@ -17,8 +17,9 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.generic import TemplateView, RedirectView
 from . import master
+from . import diary
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('auth/users/me/', c_master.MasterApi.as_view()),
+    path('auth/users/me/', master.MasterApi.as_view()),
+    path('diary/', diary.DiaryAPI.as_view())
 ]
